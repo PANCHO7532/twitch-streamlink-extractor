@@ -1,8 +1,5 @@
 # twitch-streamlink-extractor
-Extract m3u8 from livestreams/VODs/Clips on Twitch
-
-## This repo is under code-refactoring
-This is unstable code for testing, nothing stable yet, VODs and Clips aren't very well supported but hopefully in a few weeks would it be.
+Extract m3u8 from livestreams/VODs on Twitch
 
 Visit the official npm page here: [NPM Page](https://www.npmjs.com/package/twitch-streamlink-extractor)
 
@@ -11,19 +8,96 @@ Visit the official npm page here: [NPM Page](https://www.npmjs.com/package/twitc
 npm install twitch-streamlink-extractor --save
 ```
 
-(or just download a zip from [here](https://github.com/PANCHO7532/twitch-streamlink-extractor) and append it to your Node.JS project)
+(or just download a zip from [here](https://github.com/PANCHO7532/twitch-streamlink-extractor/archive/master.zip) and append it manually to your Node.JS project)
+
+# Functions/API/Usage
+### .extract(channel_name, client_id, useragent, oauth_token)
+Description: Retrieve and parse the master m3u8 file obtained from the Usher API on Twitch.
+
+* channel_name - [string or number]
+
+The channel or VOD number that you want to extract.
+* client_id - [string]
+
+Twitch client id that you will use for the request.
+* useragent - [string - optional]
+
+HTTP User Agent for the API requests, if not provided, it will use an default one.
+* oauth_token - [string - optional]
+
+OAuth token of an real Twitch account, if not provided, it will be set to "undefined"
+This can be used for retrieve restricted streams that normally with an public/no-account can't be watched.
+
+### .getToken(channel_name, client_id, useragent, oauth_token)
+Description: Retrieve the authorization token for the Usher API and a valid signature
+
+* channel_name - [string or number]
+
+The channel or VOD number that you want to extract.
+* client_id - [string]
+
+Twitch client id that you will use for the request.
+* useragent - [string - optional]
+
+HTTP User Agent for the API requests, if not provided, it will use an default one.
+* oauth_token - [string - optional]
+
+OAuth token of an real Twitch account, if not provided, it will be set to "undefined"
+This can be used for retrieve restricted streams that normally with an public/no-account can't be watched.
+
+### .getMaster(token, signature, channel_name, useragent)
+Description: Retrieve the master m3u8 file from the Usher API on Twitch
+
+* token - [json string]
+
+The JSON token string retrieved from Twitch API
+* signature - [string]
+
+Hashed signature string retrieved from Twitch API
+* channel_name - [string or number]
+
+The channel or VOD number that you want to extract.
+* useragent - [string - optional]
+
+HTTP User Agent for the API requests, if not provided, it will use an default one.
 
 # Usage Examples
 ```js
-// Example of getting an m3u8's from an actual livestream.
+// Example of getting an m3u8's from an actual livestream using the example values.
 const twitchStream = require('twitch-streamlink-extractor');
-var returnedData = twitchStream.extract("awesome_channel_name", "client_id_d389jd801dA8", "Mozilla/4.0; (UserAgent/1.0)");
+var returnedData = twitchStream.extract("awesome_channel_name", "kimne78kx3ncx6brgo4mv6wki5h1ko", "Mozilla/4.0; (UserAgent/1.0), fv34m44bdnvo1jkegobiuo9bx84");
 console.log(returnedData)
 ```
 
-Returned data should look like this:
+Returned data for the requested livestream should look like this:
 ```json
-{"chunked":"https://video-weaver.ymq01.hls.ttvnw.net/v1/playlist/CpYEkMPgJASlM_Ak6jMD9PJPF...uSmtvsU.m3u8","720p60":"https://video-weaver.ymq01.hls.ttvnw.net/v1/playlist/CpQEuBTcKXwXFJMC...7zUMMhkdB.m3u8","480p30":"https://video-weaver.ymq01.hls.ttvnw.net/v1/playlist/CpQE-WPENTs5I...I9Lbdn_BoMV0mZpoori1tqd-3N.m3u8","360p30":"https://video-weaver.ymq01.hls.ttvnw.net/v1/playlist/CpQE5okrKoEQucHR6tHB...P8Yx.m3u8","160p30":"https://video-weaver.ymq01.hls.ttvnw.net/v1/playlist/CpQEROIscKLosoNi9wn...OAp8.m3u8"}
+[{"quality":"chunked","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/CqAENULH9QMi75PRzZb-VqJFT...z89g.m3u8"},{"quality":"720p60","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/Cp4EKo_punwHjm9MQcXm...wg.m3u8"},{"quality":"720p30","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/Cp4EakBjgnDikohPqD501YcaW0sQe8SiuULC0...GxA.m3u8"},{"quality":"480p30","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/Cp4ELeLn9jqhb1jgrUoa7xFfqQl...VKZ2tAZ1w.m3u8"},{"quality":"360p30","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/Cp4E_ldXeK0EeE0woAtn7...PlpNdWiQ.m3u8"},{"quality":"160p30","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/Cp4ELp4A-lcwFSCa0m...SPPyuA.m3u8"}]
 ```
 
-There are other functions in the library but i want to explain them when i finish the code refactoring of this project.
+```js
+// Example of getting an m3u8's from an actual VOD using the example values.
+const twitchStream = require('twitch-streamlink-extractor');
+var returnedData = twitchStream.extract("vod_number_id", "kimne78kx3ncx6brgo4mv6wki5h1ko", "Mozilla/4.0; (UserAgent/1.0), fv34m44bdnvo1jkegobiuo9bx84");
+console.log(returnedData)
+```
+
+Returned data for the requested VOD should look like this:
+```json
+[{"quality":"chunked","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../chunked/index-dvr.m3u8"},{"quality":"720p60","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../720p60/index-dvr.m3u8"},{"quality":"720p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../720p30/index-dvr.m3u8"},{"quality":"480p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../480p30/index-dvr.m3u8"},{"quality":"360p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../360p30/index-dvr.m3u8"},{"quality":"160p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../160p30/index-dvr.m3u8"}]
+```
+### Please note that all responses are in JSON.
+
+# How to obtain an Client-ID
+There are many ways on obtaining it, the main one is to opening developer tools on a twitch stream and capturing it from the headers of api.twitch.tv requests, also you can try on registering an app on [https://dev.twitch.tv](https://dev.twitch.tv) but so far it seems to not work at all
+
+An example of a valid client ID for Twitch is: `kimne78kx3ncx6brgo4mv6wki5h1ko`
+
+# How to obtain my OAuth token
+As you may have guessed, you can obtain it too by opening developer tools on a twitch stream and capturing it but this time, from the usher.ttvnw.net requests
+
+An example of an OAuth token is: `fv34m44bdnvo1jkegobiuo9bx84`
+
+# Future of this project - Long term releases - Disclaimer
+This project may or may not be patched by me if Twitch makes changes on how it retrieves the stream/VOD information, however feel free to make a pull request with updates/bugfixes.
+
+No copyright intended, you use this tool as you want, i'm not responsible of anything.

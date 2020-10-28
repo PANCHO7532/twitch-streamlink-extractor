@@ -1,0 +1,13 @@
+v1.0.0
+- Now you can download VODs
+- You can now provide an oauth_token for restricted streams
+- Changed to MIT license
+- More detailed README
+- Added changelog
+- Code refactored, so everything should work now.
+
+v0.0.2
+- Fixed code so it may work now
+
+v0.0.1
+- Initial Release
