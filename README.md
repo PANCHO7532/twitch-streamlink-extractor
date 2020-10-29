@@ -71,7 +71,7 @@ console.log(returnedData)
 
 Returned data for the requested livestream should look like this:
 ```json
-[{"quality":"chunked","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/CqAENULH9QMi75PRzZb-VqJFT...z89g.m3u8"},{"quality":"720p60","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/Cp4EKo_punwHjm9MQcXm...wg.m3u8"},{"quality":"720p30","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/Cp4EakBjgnDikohPqD501YcaW0sQe8SiuULC0...GxA.m3u8"},{"quality":"480p30","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/Cp4ELeLn9jqhb1jgrUoa7xFfqQl...VKZ2tAZ1w.m3u8"},{"quality":"360p30","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/Cp4E_ldXeK0EeE0woAtn7...PlpNdWiQ.m3u8"},{"quality":"160p30","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/Cp4ELp4A-lcwFSCa0m...SPPyuA.m3u8"}]
+[{"quality":"chunked","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/CqAENULH9QMi75PRzZb-VqJFT...z89g.m3u8"},{"quality":"720p60","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/Cp4EKo_punwHjm9MQcXm...wg.m3u8"},{"quality":"720p30","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/Cp4EakBjgnDikohPqD501YcaW0sQe8SiuULC0...GxA.m3u8"},{"quality":"480p30","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/Cp4ELeLn9jqhb1jgrUoa7xFfqQl...VKZ2tAZ1w.m3u8"},{"quality":"360p30","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/Cp4E_ldXeK0EeE0woAtn7...PlpNdWiQ.m3u8"},{"quality":"160p30","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/Cp4ELp4A-lcwFSCa0m...SPPyuA.m3u8"},{"quality":"audio_only","link":"https://video-weaver.jfk04.hls.ttvnw.net/v1/playlist/CroEgFSchiJalTMO...7YqCs.m3u8"}]
 ```
 
 ```js
@@ -83,7 +83,7 @@ console.log(returnedData)
 
 Returned data for the requested VOD should look like this:
 ```json
-[{"quality":"chunked","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../chunked/index-dvr.m3u8"},{"quality":"720p60","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../720p60/index-dvr.m3u8"},{"quality":"720p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../720p30/index-dvr.m3u8"},{"quality":"480p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../480p30/index-dvr.m3u8"},{"quality":"360p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../360p30/index-dvr.m3u8"},{"quality":"160p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../160p30/index-dvr.m3u8"}]
+[{"quality":"chunked","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../chunked/index-dvr.m3u8"},{"quality":"720p60","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../720p60/index-dvr.m3u8"},{"quality":"720p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../720p30/index-dvr.m3u8"},{"quality":"480p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../480p30/index-dvr.m3u8"},{"quality":"360p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../360p30/index-dvr.m3u8"},{"quality":"160p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../160p30/index-dvr.m3u8"},{"quality":"160p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../audio-only/index-dvr.m3u8"}]
 ```
 ### Please note that all responses are in JSON.
 

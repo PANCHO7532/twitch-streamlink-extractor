@@ -1,3 +1,8 @@
+v1.0.1
+- Now you can retrieve audio only m3u8 streams and audio only m3u8 VODs
+- Fixed some typos and error messages
+- Added more tags (?)
+
 v1.0.0
 - Now you can download VODs
 - You can now provide an oauth_token for restricted streams

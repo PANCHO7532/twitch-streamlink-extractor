@@ -41,7 +41,7 @@ module.exports.getToken = function(channel_name, client_id, useragent, oauth_tok
             return JSON.stringify(response);
         case 404:
             response["errorCode"] = "GT4";
-            response["error"] = "Channel/VOD/Clip inexistent";
+            response["error"] = "Invalid Channel/VOD Inexistent";
             return JSON.stringify(response);
         case 410:
             response["errorCode"] = "GT5";
@@ -74,9 +74,9 @@ module.exports.getMaster = function(token, signature, channel_name, useragent) {
         useragent = "Mozilla/5.0; (TwitchStreamlinkExtractor)";
     }
     if(isNaN(channel_name)) {
-        var url = "https://usher.ttvnw.net/api/channel/hls/" + channel_name + ".m3u8?allow_source=true&fast_bread=true&p=" + Math.round(Math.random()*1000000) + "&player_backend=mediaplayer&playlist_include_framerate=true&reassignments_supported=true&sig=" + signature + "&supported_codecs=avc1&token=" + token + "&cdm=wv&player_version=1.1.1";
+        var url = "https://usher.ttvnw.net/api/channel/hls/" + channel_name + ".m3u8?allow_source=true&fast_bread=true&p=" + Math.round(Math.random()*1000000) + "&player_backend=mediaplayer&playlist_include_framerate=true&reassignments_supported=true&sig=" + signature + "&supported_codecs=avc1&allow_audio_only=true&type=any&token=" + token + "&cdm=wv&player_version=1.1.1";
     } else {
-        var url = "https://usher.ttvnw.net/vod/" + channel_name + ".m3u8?allow_source=true&fast_bread=true&p=" + Math.round(Math.random()*1000000) + "&player_backend=mediaplayer&playlist_include_framerate=true&reassignments_supported=true&sig=" + signature + "&supported_codecs=avc1&token=" + token + "&cdm=wv&player_version=1.1.1";
+        var url = "https://usher.ttvnw.net/vod/" + channel_name + ".m3u8?allow_source=true&fast_bread=true&p=" + Math.round(Math.random()*1000000) + "&player_backend=mediaplayer&playlist_include_framerate=true&reassignments_supported=true&sig=" + signature + "&supported_codecs=avc1&allow_audio_only=true&type=any&token=" + token + "&cdm=wv&player_version=1.1.1";
     }
     var dataForReturn = syncRequest("GET", url, {headers: {"User-Agent":useragent}});
     switch(dataForReturn["statusCode"]) {
@@ -88,7 +88,7 @@ module.exports.getMaster = function(token, signature, channel_name, useragent) {
             return JSON.stringify(response);
         case 404:
             response["error"] = "GM5";
-            response["errorCode"] = "Channel/VOD/Clip inexistent";
+            response["errorCode"] = "Invalid channel/VOD inexistent/Stream offline";
             return JSON.stringify(response);
         default:
             response["error"] = "GM99";
