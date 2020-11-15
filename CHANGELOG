@@ -1,10 +1,15 @@
+v1.0.2
+- Swapped the useragent and oauth parameters so it's more comfortable to use
+- Changed/fixed "chunked" entries with the actual video quality of that link
+- Fixed minor typos on README
+
 v1.0.1
 - Now you can retrieve audio only m3u8 streams and audio only m3u8 VODs
 - Fixed some typos and error messages
 - Added more tags (?)
 
 v1.0.0
-- Now you can download VODs
+- Now you can retrieve VODs
 - You can now provide an oauth_token for restricted streams
 - Changed to MIT license
 - More detailed README

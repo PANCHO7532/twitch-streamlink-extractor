@@ -8,7 +8,7 @@
 const syncRequest = require('sync-request');
 const m3u8fileparser = require('m3u8-file-parser');
 const m3u8reader = new m3u8fileparser();
-module.exports.getToken = function(channel_name, client_id, useragent, oauth_token) {
+module.exports.getToken = function(channel_name, client_id, oauth_token, useragent) {
     var response = {};
     if(!channel_name) {
         response["errorCode"] = "GT1";
@@ -96,7 +96,7 @@ module.exports.getMaster = function(token, signature, channel_name, useragent) {
             return JSON.stringify(response);
     }
 }
-module.exports.extract = function(channel_name, client_id, useragent, oauth_token) {
+module.exports.extract = function(channel_name, client_id, oauth_token, useragent) {
     var response = [];
     var tokenSig = this.getToken(channel_name, client_id, useragent, oauth_token);
     try { tokenSig = JSON.parse(tokenSig) } catch(error) {}
@@ -112,7 +112,12 @@ module.exports.extract = function(channel_name, client_id, useragent, oauth_toke
     m3u8Master = m3u8reader.getResult();
     for(c = 0; c < m3u8Master["segments"].length; c++) {
         var preData = {};
-        preData["quality"] = m3u8Master["segments"][c]["streamInf"]["video"];
+        if(m3u8Master["segments"][c]["streamInf"]["video"] == "chunked") {
+            var chunked_array = Object.keys(m3u8Master["media"]["VIDEO"]["chunked"]);
+            preData["quality"] = m3u8Master["media"]["VIDEO"]["chunked"][chunked_array[0]]["name"];
+        } else {
+            preData["quality"] = m3u8Master["segments"][c]["streamInf"]["video"];
+        }
         preData["link"] = m3u8Master["segments"][c]["url"]
         response.push(preData);
     }

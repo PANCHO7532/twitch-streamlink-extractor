@@ -1,6 +1,6 @@
 {
   "name": "twitch-streamlink-extractor",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Extract m3u8's links from Livestreams/VODs in Twitch",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,6 @@
     "links",
     "link extractor",
     "javascript",
-    "framework",
     "backend"
   ],
   "author": "PANCHO7532",
