@@ -77,7 +77,7 @@ Returned data for the requested livestream should look like this:
 ```js
 // Example of getting an m3u8's from an actual VOD using the example values.
 const twitchStream = require('twitch-streamlink-extractor');
-var returnedData = twitchStream.extract("vod_number_id", "jknof83ly4odx7cthm5nv7xji6h2ek", "Mozilla/4.0; (UserAgent/1.0), fv34m44bdnvo1jkegobiuo9bx84");
+var returnedData = twitchStream.extract("vod_number_id", "jknof83ly4odx7cthm5nv7xji6h2ek", "fv34m44bdnvo1jkegobiuo9bx84", "Mozilla/4.0; (UserAgent/1.0)");
 console.log(returnedData)
 ```
 
