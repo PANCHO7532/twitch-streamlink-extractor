@@ -3,6 +3,8 @@ Extract m3u8 from livestreams/VODs on Twitch
 
 Visit the official npm page here: [NPM Page](https://www.npmjs.com/package/twitch-streamlink-extractor)
 
+### (project not related to the streamlink project)
+
 # Installing
 ```bash
 npm install twitch-streamlink-extractor --save
@@ -85,15 +87,14 @@ Returned data for the requested VOD should look like this:
 ```json
 [{"quality":"1080p","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../chunked/index-dvr.m3u8"},{"quality":"720p60","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../720p60/index-dvr.m3u8"},{"quality":"720p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../720p30/index-dvr.m3u8"},{"quality":"480p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../480p30/index-dvr.m3u8"},{"quality":"360p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../360p30/index-dvr.m3u8"},{"quality":"160p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../160p30/index-dvr.m3u8"},{"quality":"audio_only","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../audio-only/index-dvr.m3u8"}]
 ```
-### Please note that all responses are in JSON.
 
 # How to obtain an Client-ID
-There are many ways on obtaining it, the main one is to opening developer tools on a twitch stream and capturing it from the headers of api.twitch.tv requests, also you can try on registering an app on [https://dev.twitch.tv](https://dev.twitch.tv)
+There are many ways on obtaining it, the main one is to opening developer tools on a twitch stream and capturing it from the headers of gql.twitch.tv requests, also you can try on registering an app on [https://dev.twitch.tv](https://dev.twitch.tv)
 
 An example of a valid client ID for Twitch is: `jknof83ly4odx7cthm5nv7xji6h2ek`
 
 # How to obtain my OAuth token
-As you may have guessed, you can obtain it too by opening developer tools on a twitch stream and capturing it but this time, from the usher.ttvnw.net requests
+As you may have guessed, you can obtain it too by opening developer tools on a twitch stream and capturing it from the Authorization header of gql.twitch.tv requests, it should look like "Authorization: OAuth fv34m44bdnvo1jkegobiuo9bx84" where "fv34m44bdnvo1jkegobiuo9bx84" is the token you should use on OAuth parameters of this script.
 
 An example of an OAuth token is: `fv34m44bdnvo1jkegobiuo9bx84`
 
