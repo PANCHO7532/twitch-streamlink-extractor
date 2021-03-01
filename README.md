@@ -89,7 +89,7 @@ Returned data for the requested VOD should look like this:
 ```
 
 # How to obtain an Client-ID
-There are many ways on obtaining it, the main one is to opening developer tools on a twitch stream and capturing it from the headers of gql.twitch.tv requests, also you can try on registering an app on [https://dev.twitch.tv](https://dev.twitch.tv)
+There are many ways on obtaining it, the main one is by opening the developer tools on a twitch stream and capturing it from the headers of gql.twitch.tv requests, also you can try on registering an app on [https://dev.twitch.tv](https://dev.twitch.tv)
 
 An example of a valid client ID for Twitch is: `jknof83ly4odx7cthm5nv7xji6h2ek`
 

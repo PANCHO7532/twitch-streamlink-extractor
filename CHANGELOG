@@ -1,3 +1,6 @@
+v2.0.1
+- Fixed some typos and updated info on README.md
+
 v2.0.0
 - Fixed token requests with the new Twitch GQL endpoints
 - Swapped parameters in getToken() and extract()
