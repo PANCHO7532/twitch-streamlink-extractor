@@ -5,52 +5,70 @@
 * Coded by PANCHO7532 - P7COMunications LLC
 * This project comes with a LICENSE file that you must read before doing stuff, please check it out!
 */
+const fs = require('fs');
 const syncRequest = require('sync-request');
 const m3u8fileparser = require('m3u8-file-parser');
 const m3u8reader = new m3u8fileparser();
-module.exports.getToken = function(channel_name, client_id, oauth_token, useragent) {
+var gqlRequest = JSON.parse(fs.readFileSync(__dirname + "/gql_request.json").toString());
+var dataForReturn;
+var gqlString = "";
+module.exports.getToken = function(channel_name, client_id, useragent, oauth_token) {
     var response = {};
     if(!channel_name) {
         response["errorCode"] = "GT1";
         response["error"] = "No channel name specified!";
-        return JSON.stringify(response);
+        return response;
     }
     if(!client_id) {
         response["errorCode"] = "GT2";
         response["error"] = "No client_id specified!";
-        return JSON.stringify(response);
+        return response;
     }
     if(!useragent) {
         useragent = "Mozilla/5.0; (TwitchStreamlinkExtractor)";
     }
-    if(!oauth_token) {
-        oauth_token = "undefined";
-    }
     if(isNaN(channel_name)) {
-        var url = "https://api.twitch.tv/api/channels/" + channel_name + "/access_token?oauth_token=" + oauth_token + "&platform=web&player_type=site&player_backend=mediaplayer";
+        gqlRequest["variables"]["isLive"] = true;
+        gqlRequest["variables"]["login"] = channel_name;
+        gqlString = JSON.stringify(gqlRequest);
     } else {
-        var url = "https://api.twitch.tv/api/vods/" + channel_name + "/access_token?oauth_token=" + oauth_token + "&platform=web&player_type=site&player_backend=mediaplayer";
+        gqlRequest["variables"]["isVod"] = true;
+        gqlRequest["variables"]["vodID"] = channel_name;
+        gqlString = JSON.stringify(gqlRequest);
     }
-    var dataForReturn = syncRequest("GET", url, {headers: {"Client-ID":client_id, "User-Agent":useragent}});
+    if(!oauth_token) {
+        dataForReturn = syncRequest("POST", "https://gql.twitch.tv/gql", {
+            headers: {
+                "Client-ID":client_id, 
+                "User-Agent":useragent
+            },
+            body: gqlString
+        });
+    } else {
+        dataForReturn = syncRequest("POST", "https://gql.twitch.tv/gql", {
+            headers: {
+                "Client-ID":client_id, 
+                "Authorization":"OAuth " + oauth_token, 
+                "User-Agent":useragent
+            },
+            body: gqlString
+        });
+    }
     switch(dataForReturn["statusCode"]) {
         case 200:
             return JSON.parse(dataForReturn["body"].toString());
         case 400:
-            response["errorCode"] = "GT3";
-            response["error"] = "Malformed/Bad Request";
-            return JSON.stringify(response);
-        case 404:
-            response["errorCode"] = "GT4";
-            response["error"] = "Invalid Channel/VOD Inexistent";
-            return JSON.stringify(response);
-        case 410:
+            response["errorCode"] = "GT98";
+            response["error"] = JSON.parse(dataForReturn["body"])["message"];
+            return response;
+        case 401:
             response["errorCode"] = "GT5";
-            response["error"] = "Your client-id isn't authorized by Twitch for perform this action.";
-            return JSON.stringify(response);
+            response["error"] = "Your OAuth token is invalid.";
+            return response;
         default:
             response["errorCode"] = "GT99";
             response["error"] = "The API returned an unknown error state.";
-            return JSON.stringify(response);
+            return response;
     }
 }
 module.exports.getMaster = function(token, signature, channel_name, useragent) {
@@ -58,17 +76,17 @@ module.exports.getMaster = function(token, signature, channel_name, useragent) {
     if(!token) {
         response["errorCode"] = "GM1";
         response["error"] = "No token specified!";
-        return JSON.stringify(response);
+        return response;
     }
     if(!signature) {
         response["errorCode"] = "GM2";
         response["error"] = "No signature hash specified!";
-        return JSON.stringify(response);
+        return response;
     }
     if(!channel_name) {
         response["errorCode"] = "GM3";
         response["error"] = "No channel name specified!";
-        return JSON.stringify(response);
+        return response;
     }
     if(!useragent) {
         useragent = "Mozilla/5.0; (TwitchStreamlinkExtractor)";
@@ -82,31 +100,41 @@ module.exports.getMaster = function(token, signature, channel_name, useragent) {
     switch(dataForReturn["statusCode"]) {
         case 200:
             return dataForReturn["body"].toString();
+        case 400:
+            response["errorCode"] = "GM6";
+            response["error"] = "Invalid VOD number";
+            return response;
         case 403:
-            response["error"] = "GM4";
-            response["errorCode"] = "Malformed token/Malformed request/Unauthorized";
-            return JSON.stringify(response);
+            response["errorCode"] = "GM4";
+            response["error"] = "Malformed token/Malformed request/Unauthorized";
+            return response;
         case 404:
-            response["error"] = "GM5";
-            response["errorCode"] = "Invalid channel/VOD inexistent/Stream offline";
-            return JSON.stringify(response);
+            response["errorCode"] = "GM5";
+            response["error"] = "Invalid channel/VOD inexistent/Stream offline";
+            return response;
         default:
-            response["error"] = "GM99";
-            response["errorCode"] = "The API returned an unknown error state.";
-            return JSON.stringify(response);
+            response["errorCode"] = "GM99";
+            response["error"] = "The API returned an unknown error state.";
+            return response;
     }
 }
-module.exports.extract = function(channel_name, client_id, oauth_token, useragent) {
+module.exports.extract = function(channel_name, client_id, useragent, oauth_token) {
     var response = [];
     var tokenSig = this.getToken(channel_name, client_id, useragent, oauth_token);
-    try { tokenSig = JSON.parse(tokenSig) } catch(error) {}
+    var m3u8Master = {};
     if(tokenSig["error"]) {
-        return JSON.stringify(tokenSig);
+        return tokenSig;
     }
-    var m3u8Master = this.getMaster(tokenSig["token"], tokenSig["sig"], channel_name, useragent);
-    try { m3u8Master = JSON.parse(m3u8Master) } catch(error) {}
+    if(tokenSig["data"]["streamPlaybackAccessToken"]) {
+        var m3u8Master = this.getMaster(tokenSig["data"]["streamPlaybackAccessToken"]["value"], tokenSig["data"]["streamPlaybackAccessToken"]["signature"], channel_name, useragent);
+    } else if(tokenSig["data"]["videoPlaybackAccessToken"]) {
+        var m3u8Master = this.getMaster(tokenSig["data"]["videoPlaybackAccessToken"]["value"], tokenSig["data"]["videoPlaybackAccessToken"]["signature"], channel_name, useragent);
+    } else {
+        m3u8Master["errorCode"] = "GT100";
+        m3u8Master["error"] = "There was an error while parsing the main m3u8 data, stream/vod may be invalid";
+    }
     if(m3u8Master["error"]) {
-        return JSON.stringify(m3u8Master);
+        return m3u8Master;
     }
     m3u8reader.read(m3u8Master);
     m3u8Master = m3u8reader.getResult();
@@ -121,5 +149,5 @@ module.exports.extract = function(channel_name, client_id, oauth_token, useragen
         preData["link"] = m3u8Master["segments"][c]["url"]
         response.push(preData);
     }
-    return JSON.stringify(response);
+    return response;
 }

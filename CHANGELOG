@@ -1,3 +1,9 @@
+v2.0.0
+- Fixed token requests with the new Twitch GQL endpoints
+- Swapped parameters in getToken() and extract()
+- Functions now returns a Javascript object instead of a JSON string
+- Bug fixes
+
 v1.0.2
 - Swapped the useragent and oauth parameters so it's more comfortable to use
 - Changed/fixed "chunked" entries with the actual video quality of that link

@@ -11,7 +11,7 @@ npm install twitch-streamlink-extractor --save
 (or just download a zip from [here](https://github.com/PANCHO7532/twitch-streamlink-extractor/archive/master.zip) and append it manually to your Node.JS project)
 
 # Functions/API/Usage
-### .extract(channel_name, client_id, oauth_token, useragent)
+### .extract(channel_name, client_id, useragent, oauth_token)
 Description: Retrieve and parse the master m3u8 file obtained from the Usher API on Twitch.
 
 * channel_name - [string or number]
@@ -28,7 +28,7 @@ This can be used for retrieve restricted streams that normally with an public/no
 
 HTTP User Agent for the API requests, if not provided, it will use an default one.
 
-### .getToken(channel_name, client_id, oauth_token, useragent)
+### .getToken(channel_name, client_id, useragent, oauth_token)
 Description: Retrieve the authorization token for the Usher API and a valid signature
 
 * channel_name - [string or number]
@@ -65,7 +65,7 @@ HTTP User Agent for the API requests, if not provided, it will use an default on
 ```js
 // Example of getting an m3u8's from an actual livestream using the example values.
 const twitchStream = require('twitch-streamlink-extractor');
-var returnedData = twitchStream.extract("awesome_channel_name", "jknof83ly4odx7cthm5nv7xji6h2ek", "fv34m44bdnvo1jkegobiuo9bx84", "Mozilla/4.0; (UserAgent/1.0");
+var returnedData = twitchStream.extract("awesome_channel_name", "jknof83ly4odx7cthm5nv7xji6h2ek", "Mozilla/4.0; (UserAgent/1.0", "fv34m44bdnvo1jkegobiuo9bx84");
 console.log(returnedData)
 ```
 
@@ -77,7 +77,7 @@ Returned data for the requested livestream should look like this:
 ```js
 // Example of getting an m3u8's from an actual VOD using the example values.
 const twitchStream = require('twitch-streamlink-extractor');
-var returnedData = twitchStream.extract("vod_number_id", "jknof83ly4odx7cthm5nv7xji6h2ek", "fv34m44bdnvo1jkegobiuo9bx84", "Mozilla/4.0; (UserAgent/1.0)");
+var returnedData = twitchStream.extract("vod_number_id", "jknof83ly4odx7cthm5nv7xji6h2ek", "Mozilla/4.0; (UserAgent/1.0)", "fv34m44bdnvo1jkegobiuo9bx84");
 console.log(returnedData)
 ```
 
