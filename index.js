@@ -33,8 +33,7 @@ module.exports.getToken = async function(channel_name_or_vod_id = "", client_id 
             path: "/gql",
             headers: {
                 "Client-ID": client_id,
-                "User-Agent": useragent,
-                "Authorization": "OAuth " + oauth_token
+                "User-Agent": useragent
             }
         }, JSON.stringify(gqlRequest));
     } else {
@@ -45,7 +44,8 @@ module.exports.getToken = async function(channel_name_or_vod_id = "", client_id 
             path: "/gql",
             headers: {
                 "Client-ID": client_id,
-                "User-Agent": useragent
+                "User-Agent": useragent,
+                "Authorization": "OAuth " + oauth_token
             }
         }, JSON.stringify(gqlRequest));
     }

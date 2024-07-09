@@ -1,3 +1,6 @@
+v3.0.1
+- Fix GQL OAuth request
+
 v3.0.0
 - Drop sync-request dependency in favor of an custom async/await based library
 - Removed errorCode from errors
