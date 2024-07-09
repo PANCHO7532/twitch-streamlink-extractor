@@ -1,3 +1,8 @@
+v3.0.0
+- Drop sync-request dependency in favor of an custom async/await based library
+- Removed errorCode from errors
+- Re-vamped code for modern standards (hopefully).
+
 v2.0.1
 - Fixed some typos and updated info on README.md
 

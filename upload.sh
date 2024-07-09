@@ -9,7 +9,7 @@ if [ "$ANSW" == "y e s" ]; then
     git add .
     git commit -m "P7RND_$(($RANDOM * 50))"
     git push origin master
-    echo "[INFO] - Upload script done!"
+    echo "[INFO] Upload script done!"
 else
-    echo "[ERROR] - Aborting..."
+    echo "[ERROR] Aborting..."
 fi

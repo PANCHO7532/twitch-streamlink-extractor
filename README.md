@@ -3,16 +3,16 @@ Extract m3u8 from livestreams/VODs on Twitch
 
 Visit the official npm page here: [NPM Page](https://www.npmjs.com/package/twitch-streamlink-extractor)
 
-### (project not related to the streamlink project)
+#### (project not related to the streamlink project)
 
-# Installing
+## Installing
 ```bash
 npm install twitch-streamlink-extractor --save
 ```
 
 (or just download a zip from [here](https://github.com/PANCHO7532/twitch-streamlink-extractor/archive/master.zip) and append it manually to your Node.JS project)
 
-# Functions/API/Usage
+## Functions/API/Usage
 ### .extract(channel_name, client_id, useragent, oauth_token)
 Description: Retrieve and parse the master m3u8 file obtained from the Usher API on Twitch.
 
@@ -63,11 +63,11 @@ The channel or VOD number that you want to extract.
 
 HTTP User Agent for the API requests, if not provided, it will use an default one.
 
-# Usage Examples
+## Usage Examples
 ```js
 // Example of getting an m3u8's from an actual livestream using the example values.
 const twitchStream = require('twitch-streamlink-extractor');
-var returnedData = twitchStream.extract("awesome_channel_name", "jknof83ly4odx7cthm5nv7xji6h2ek", "Mozilla/4.0; (UserAgent/1.0", "fv34m44bdnvo1jkegobiuo9bx84");
+var returnedData = await twitchStream.extract("awesome_channel_name", "jknof83ly4odx7cthm5nv7xji6h2ek", "Mozilla/4.0; (UserAgent/1.0", "fv34m44bdnvo1jkegobiuo9bx84");
 console.log(returnedData)
 ```
 
@@ -79,7 +79,7 @@ Returned data for the requested livestream should look like this:
 ```js
 // Example of getting an m3u8's from an actual VOD using the example values.
 const twitchStream = require('twitch-streamlink-extractor');
-var returnedData = twitchStream.extract("vod_number_id", "jknof83ly4odx7cthm5nv7xji6h2ek", "Mozilla/4.0; (UserAgent/1.0)", "fv34m44bdnvo1jkegobiuo9bx84");
+var returnedData = await twitchStream.extract("vod_number_id", "jknof83ly4odx7cthm5nv7xji6h2ek", "Mozilla/4.0; (UserAgent/1.0)", "fv34m44bdnvo1jkegobiuo9bx84");
 console.log(returnedData)
 ```
 
@@ -88,17 +88,17 @@ Returned data for the requested VOD should look like this:
 [{"quality":"1080p","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../chunked/index-dvr.m3u8"},{"quality":"720p60","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../720p60/index-dvr.m3u8"},{"quality":"720p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../720p30/index-dvr.m3u8"},{"quality":"480p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../480p30/index-dvr.m3u8"},{"quality":"360p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../360p30/index-dvr.m3u8"},{"quality":"160p30","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../160p30/index-dvr.m3u8"},{"quality":"audio_only","link":"https://d2nvs31859zcd8.cloudfront.net/c2c985c.../audio-only/index-dvr.m3u8"}]
 ```
 
-# How to obtain an Client-ID
+## How to obtain an Client-ID
 There are many ways on obtaining it, the main one is by opening the developer tools on a twitch stream and capturing it from the headers of gql.twitch.tv requests, also you can try on registering an app on [https://dev.twitch.tv](https://dev.twitch.tv)
 
 An example of a valid client ID for Twitch is: `jknof83ly4odx7cthm5nv7xji6h2ek`
 
-# How to obtain my OAuth token
+## How to obtain my OAuth token
 As you may have guessed, you can obtain it too by opening developer tools on a twitch stream and capturing it from the Authorization header of gql.twitch.tv requests, it should look like "Authorization: OAuth fv34m44bdnvo1jkegobiuo9bx84" where "fv34m44bdnvo1jkegobiuo9bx84" is the token you should use on OAuth parameters of this script.
 
 An example of an OAuth token is: `fv34m44bdnvo1jkegobiuo9bx84`
 
-# Future of this project - Long term releases - Disclaimer
+## Future of this project - Long term releases - Disclaimer
 This project may or may not be patched by me if Twitch makes changes on how it retrieves the stream/VOD information, however feel free to make a pull request with updates/bugfixes.
 
 No copyright intended, you use this tool as you want, i'm not responsible of anything.
