@@ -97,12 +97,17 @@ Returned data for the requested VOD should look like this:
 There are many ways on obtaining it, the main one is by opening the developer tools on a twitch stream and capturing it from the headers of `gql.twitch.tv` requests, also you can try on registering an app on [https://dev.twitch.tv](https://dev.twitch.tv), keep on mind this last option might give you a valid Client-ID, but you 100% have to extract the Device-ID from GQL headers.
 
 An example of how a valid client ID for Twitch should look like: `jknof83ly4odx7cthm5nv7xji6h2ek`
+
 An example of how a valid device ID for Twitch should look like: `gw45n55ceowp2klfhpcjvp0cy95xed`
+
+(Please note these aren't valid IDs and you shouldn't use them)
 
 ## How to obtain my OAuth token
 As you may have guessed, you can obtain it too by opening developer tools on a twitch stream and capturing it from the Authorization header of gql.twitch.tv requests, it should look like "Authorization: OAuth fv34m44bdnvo1jkegobiuo9bx84" where "fv34m44bdnvo1jkegobiuo9bx84" is the token you should use on OAuth parameters of this script.
 
 An example of an OAuth token is: `fv34m44bdnvo1jkegobiuo9bx84`
+
+(Please note this is not a valid token and you shouldn't use it)
 
 ## Future of this project - Long term releases - Disclaimer
 This project may or may not be patched by me if Twitch makes changes on how it retrieves the stream/VOD information, however feel free to make a pull request with updates/bugfixes.
