@@ -13,54 +13,59 @@ npm install twitch-streamlink-extractor --save
 (or just download a zip from [here](https://github.com/PANCHO7532/twitch-streamlink-extractor/archive/master.zip) and append it manually to your Node.JS project)
 
 ## Functions/API/Usage
-### .extract(channel_name, client_id, useragent, oauth_token)
+### .extract(channel_name_or_vod_id, client_id, device_id, oauth_token, useragent)
 Description: Retrieve and parse the master m3u8 file obtained from the Usher API on Twitch.
 
-* channel_name - [string or number]
-
+#### channel_name - [string or number]
 The channel or VOD number that you want to extract.
-* client_id - [string]
 
-Twitch client id that you will use for the request.
-* oauth_token - [string - optional]
+#### client_id - [string]
+Twitch Client ID that you will use for the request.
 
+#### device_id - [string]
+Some Device ID that will be used to identify your request to the server as it came *from that* device
+
+#### oauth_token - [string - optional]
 OAuth token of an real Twitch account, if not provided, it will be set to "undefined"
-This can be used for retrieve restricted streams that normally with an public/no-account can't be watched.
-* useragent - [string - optional]
 
+This can be used for retrieve restricted streams that normally with an public/no-account can't be watched.
+
+#### useragent - [string - optional]
 HTTP User Agent for the API requests, if not provided, it will use an default one.
 
-### .getToken(channel_name, client_id, useragent, oauth_token)
+### .getToken(channel_name_or_vod_id, client_id, device_id, oauth_token, useragent)
 Description: Retrieve the authorization token for the Usher API and a valid signature
 
-* channel_name - [string or number]
-
+#### channel_name - [string or number]
 The channel or VOD number that you want to extract.
-* client_id - [string]
 
+#### client_id - [string]
 Twitch client id that you will use for the request.
-* oauth_token - [string - optional]
 
+#### device_id - [string]
+Some Device ID that will be used to identify your request to the server as it came *from that* device
+
+#### oauth_token - [string - optional]
 OAuth token of an real Twitch account, if not provided, it will be set to "undefined"
-This can be used for retrieve restricted streams that normally with an public/no-account can't be watched.
-* useragent - [string - optional]
 
+This can be used for retrieve restricted streams that normally with an public/no-account can't be watched.
+
+#### useragent - [string - optional]
 HTTP User Agent for the API requests, if not provided, it will use an default one.
 
 ### .getMaster(token, signature, channel_name, useragent)
 Description: Retrieve the master m3u8 file from the Usher API on Twitch
 
-* token - [json string]
-
+#### token - [json string]
 The JSON token string retrieved from Twitch API
-* signature - [string]
 
+#### signature - [string]
 Hashed signature string retrieved from Twitch API
-* channel_name - [string or number]
 
+#### channel_name - [string or number]
 The channel or VOD number that you want to extract.
-* useragent - [string - optional]
 
+#### useragent - [string - optional]
 HTTP User Agent for the API requests, if not provided, it will use an default one.
 
 ## Usage Examples

@@ -1,3 +1,10 @@
+v3.1.0
+- Proper return value from getMaster()/getToken() - This is a breaking API change for these functions.
+- New parameter: device_id on getToken/extract() - This is a breaking API change for these functions.
+- Parameters useragent and oauth_token are now swapped in getToken()/extract() - This is a breaking API change for these functions.
+- Slightly better error handling
+- A little bit of code cleanup
+
 v3.0.1
 - Fix GQL OAuth request
 
