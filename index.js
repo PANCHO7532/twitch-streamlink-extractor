@@ -16,7 +16,7 @@ var gqlRequest = JSON.parse(fs.readFileSync(__dirname + "/gql_request.json").toS
 module.exports.getToken = async function(channel_name_or_vod_id = "", client_id = "", device_id = "", oauth_token = "", useragent = "") {
     if(!channel_name_or_vod_id || channel_name_or_vod_id == "") { return { error: "No channel name or video/VOD ID specified" } }
     if(!client_id || channel_name_or_vod_id == "") { return { error: "No Client ID specified" } }
-    if(!useragent || useragent == "") { useragent = "Mozilla 5.0; (TwitchStreamlinkExtractor/3.1.0)" }
+    if(!useragent || useragent == "") { useragent = "Mozilla 5.0; (TwitchStreamlinkExtractor/3.1.1)" }
     if(isNaN(channel_name_or_vod_id)) {
         // We requested a channel stream
         gqlRequest["variables"]["isLive"] = true;
@@ -54,7 +54,7 @@ module.exports.getMaster = async function(token = "", signature = "", channel_na
     if(!token || token == "") { return { error: "No token has been provided" } }
     if(!signature || signature == "") { return { error: "No signature hash provided " } }
     if(!channel_name_or_vod_id || channel_name_or_vod_id == "") { return { error: "No channel name or video/VOD ID specified" } }
-    if(!useragent || useragent == "") { useragent = "Mozilla 5.0; (TwitchStreamlinkExtractor/3.1.0)" }
+    if(!useragent || useragent == "") { useragent = "Mozilla 5.0; (TwitchStreamlinkExtractor/3.1.1)" }
     if(isNaN(channel_name_or_vod_id)) {
         var masterPath = "/api/channel/hls/" + channel_name_or_vod_id + ".m3u8?allow_source=true&fast_bread=true&p=" + Math.round(Math.random()*1000000) + "&player_backend=mediaplayer&playlist_include_framerate=true&reassignments_supported=true&sig=" + signature + "&supported_codecs=avc1,h264&allow_audio_only=true&type=any&token=" + token + "&cdm=wv&player_version=1.1.1";
     } else {
